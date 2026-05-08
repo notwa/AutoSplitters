@@ -661,6 +661,13 @@ init
             //{ 52477952, 0xB15D7C },      // bsnes v113/114
             // This is the official release of v115, the Nightly releases report as v115 but won't work with this
             { 52477952, 0xB16D7C },      // bsnes v115
+            // Use negative numbers to signify relative offsets.
+            { 57966592, -0x996490 },     // bsnes-as v20240115
+            { 58007552, -0x9A0470 },     // bsnes-as v20240512
+            { 58028032, -0x9A5470 },     // bsnes-as v20250202
+            // This version cannot be supported because the size is the same:
+            //{ 58032128, -0x9A5470 },   // bsnes-as v20250301
+            { 58032128, -0x9A6470 },     // bsnes-as v20250308
             { 7061504,  0x36F11500240 }, // BizHawk 2.3
             { 7249920,  0x36F11500240 }, // BizHawk 2.3.1
             { 6938624,  0x36F11500240 }, // BizHawk 2.3.2
@@ -669,7 +676,14 @@ init
 
         long wramAddr;
         if (versions.TryGetValue(modules.First().ModuleMemorySize, out wramAddr)) {
-            memoryOffset = (IntPtr)wramAddr;
+            if (wramAddr < 0) {
+                // The executable is loaded to a random address.
+                // Use offsets relative to the start of the module.
+                long memoryStart = (long)modules.First().BaseAddress;
+                memoryOffset = (IntPtr)(memoryStart - wramAddr);
+            } else {
+                memoryOffset = (IntPtr)wramAddr;
+            }
         }
     } else if (memory.ProcessName.ToLower().Contains("retroarch")) {
         // RetroArch stores a pointer to the emulated WRAM inside itself (it
