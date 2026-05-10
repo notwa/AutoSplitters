@@ -602,90 +602,45 @@ init
 {
     IntPtr memoryOffset = IntPtr.Zero;
 
-    if (memory.ProcessName.ToLower().Contains("snes9x")) {
-        // TODO: These should probably be module-relative offsets too. Then
-        // some of this codepath can be unified with the RA stuff below.
-        var versions = new Dictionary<int, long>{
-            { 10330112, 0x789414 },   // snes9x 1.52-rr
-            { 7729152, 0x890EE4 },    // snes9x 1.54-rr
-            { 5914624, 0x6EFBA4 },    // snes9x 1.53
-            { 6909952, 0x140405EC8 }, // snes9x 1.53 (x64)
-            { 6447104, 0x7410D4 },    // snes9x 1.54/1.54.1
-            { 7946240, 0x1404DAF18 }, // snes9x 1.54/1.54.1 (x64)
-            { 6602752, 0x762874 },    // snes9x 1.55
-            { 8355840, 0x1405BFDB8 }, // snes9x 1.55 (x64)
-            { 6856704, 0x78528C },    // snes9x 1.56/1.56.2
-            { 9003008, 0x1405D8C68 }, // snes9x 1.56 (x64)
-            { 6848512, 0x7811B4 },    // snes9x 1.56.1
-            { 8945664, 0x1405C80A8 }, // snes9x 1.56.1 (x64)
-            { 9015296, 0x1405D9298 }, // snes9x 1.56.2 (x64)
-            { 6991872, 0x7A6EE4 },    // snes9x 1.57
-            { 9048064, 0x1405ACC58 }, // snes9x 1.57 (x64)
-            { 7000064, 0x7A7EE4 },    // snes9x 1.58
-            { 9060352, 0x1405AE848 }, // snes9x 1.58 (x64)
-            { 8953856, 0x975A54 },    // snes9x 1.59.2
-            { 12537856, 0x1408D86F8 },// snes9x 1.59.2 (x64)
-            { 9646080, 0x97EE04 },    // Snes9x-rr 1.60
-            { 13565952, 0x140925118 },// Snes9x-rr 1.60 (x64)
-            { 9027584, 0x94DB54 },    // snes9x 1.60
-            { 12836864, 0x1408D8BE8 } // snes9x 1.60 (x64)
-        };
+    IntPtr start = modules.First().BaseAddress;
+    long exeSize = modules.First().ModuleMemorySize;
+    bool is32bit = false, is64bit = false; // if neither are set then this isn't x86
+    uint timestamp = 0; // not reliable, many stripped exes just say 0
+    uint codeSize = 0, dataSize = 0;
 
-        long pointerAddr;
-        if (versions.TryGetValue(modules.First().ModuleMemorySize, out pointerAddr)) {
-            memoryOffset = memory.ReadPointer((IntPtr)pointerAddr);
-        }
-    } else if (memory.ProcessName.ToLower().Contains("higan") || memory.ProcessName.ToLower().Contains("bsnes") || memory.ProcessName.ToLower().Contains("emuhawk") || memory.ProcessName.ToLower().Contains("lsnes-bsnes")) {
-        var versions = new Dictionary<int, long>{
-            { 12509184, 0x915304 },      // higan v102
-            { 13062144, 0x937324 },      // higan v103
-            { 15859712, 0x952144 },      // higan v104
-            { 16756736, 0x94F144 },      // higan v105tr1
-            { 16019456, 0x94D144 },      // higan v106
-            { 15360000, 0x8AB144 },      // higan v106.112
-            { 22388736, 0xB0ECC8 },      // higan v107
-            { 23142400, 0xBC7CC8 },      // higan v108
-            { 23166976, 0xBCECC8 },      // higan v109
-            { 23224320, 0xBDBCC8 },      // higan v110
-            { 23781376, 0xBB0CC8 },      // higan v110 (x64)
-            { 10096640, 0x72BECC },      // bsnes v107
-            { 10338304, 0x762F2C },      // bsnes v107.1
-            { 47230976, 0x765F2C },      // bsnes v107.2/107.3
-            { 142282752, 0xA65464 },     // bsnes v108
-            { 131354624, 0xA6ED5C },     // bsnes v109
-            { 131543040, 0xA9BD5C },     // bsnes v110
-            { 51924992, 0xA9DD5C },      // bsnes v111
-            { 52056064, 0xAAED7C },      // bsnes v112
-            // Unfortunately v113/114 cannot be supported with this style
-            // of check because their size matches v115, with a different offset
-            //{ 52477952, 0xB15D7C },      // bsnes v113/114
-            // This is the official release of v115, the Nightly releases report as v115 but won't work with this
-            { 52477952, 0xB16D7C },      // bsnes v115
-            // Use negative numbers to signify relative offsets.
-            { 57966592, -0x996490 },     // bsnes-as v20240115
-            { 58007552, -0x9A0470 },     // bsnes-as v20240512
-            { 58028032, -0x9A5470 },     // bsnes-as v20250202
-            // This version cannot be supported because the size is the same:
-            //{ 58032128, -0x9A5470 },   // bsnes-as v20250301
-            { 58032128, -0x9A6470 },     // bsnes-as v20250308
-            { 7061504,  0x36F11500240 }, // BizHawk 2.3
-            { 7249920,  0x36F11500240 }, // BizHawk 2.3.1
-            { 6938624,  0x36F11500240 }, // BizHawk 2.3.2
-            { 35414016, 0x023A1BF0 },    // lsnes rr2-B23
-        };
-
-        long wramAddr;
-        if (versions.TryGetValue(modules.First().ModuleMemorySize, out wramAddr)) {
-            if (wramAddr < 0) {
-                // The executable is loaded to a random address.
-                // Use offsets relative to the start of the module.
-                long memoryStart = (long)modules.First().BaseAddress;
-                memoryOffset = (IntPtr)(memoryStart - wramAddr);
-            } else {
-                memoryOffset = (IntPtr)wramAddr;
+    { // parse the PE header from the executable loaded in memory (the first module)
+        ushort stubMagic = game.ReadValue<ushort>(start);
+        uint signOffset = game.ReadValue<uint>(start + 0x3C);
+        if (stubMagic == 0x5A4D && signOffset >= 64 && signOffset <= 1024) {
+            IntPtr coffStart = start + (Int32)signOffset + 4;
+            uint signature = game.ReadValue<uint>(coffStart - 4);
+            ushort machine = game.ReadValue<ushort>(coffStart);
+            timestamp = game.ReadValue<uint>(coffStart + 4);
+            ushort optionalSize = game.ReadValue<ushort>(coffStart + 16);
+            is32bit = machine == 0x014C;
+            is64bit = machine == 0x8664;
+            if (signature == 0x00004550 && (is32bit || is64bit) && optionalSize >= 0xE0) {
+                IntPtr optStart = coffStart + 20;
+                ushort optMagic = game.ReadValue<ushort>(optStart);
+                if (optMagic == 0x10B || optMagic == 0x20B) {
+                    codeSize = game.ReadValue<uint>(optStart + 4);
+                    dataSize = game.ReadValue<uint>(optStart + 8);
+                }
             }
         }
-    } else if (memory.ProcessName.ToLower().Contains("retroarch")) {
+    }
+
+    // create a unique hash out of the code size and data size.
+    Func<ulong,ulong,ulong> Cantor = (x, y) => (x + y) * (x + y + 1) / 2 + y;
+    Func<ulong,ulong,ulong> Sizes = (code, data) => Cantor(code / 512, data / 512);
+    //ulong sizeHash = Cantor(codeSize / 512, dataSize / 512);
+    ulong sizeHash = Sizes(codeSize, dataSize);
+    vars.DebugOutput("Cantor Hash: 0x" + sizeHash.ToString("X8"));
+
+    Func<long, bool, bool, Tuple<long, bool, bool>> At = (a, b, c) => Tuple.Create(a, b, c);
+
+    var processName = game.ProcessName.ToLower();
+    if (processName.Contains("retroarch")) {
         // RetroArch stores a pointer to the emulated WRAM inside itself (it
         // can get this pointer via the Core API). This happily lets this work
         // on any variant of Snes9x cores, depending only on the RA version.
@@ -714,6 +669,73 @@ init
                 if (versions.TryGetValue(higanModule.ModuleMemorySize, out wramOffset)) {
                     memoryOffset = higanModule.BaseAddress + wramOffset;
                 }
+            }
+        }
+    } else {
+        var versions = new Dictionary<ulong, Tuple<long, bool, bool>>{
+            /*
+            { CantorHash, At(Address, IsAbsolute, IsPointer) }, // Emulator X.YY
+            */
+            //{ 10330112, At(0x389414, false, true) }, // Snes9x 1.52-rr
+            //{ 7729152,  At(0x490EE4, false, true) }, // Snes9x 1.54-rr
+            //{ 9646080,  At(0x57EE04, false, true) }, // Snes9x-rr 1.60
+            { 0x14E33557, At(0x925118, false, true) }, // Snes9x-rr 1.60 (x64)
+            { 0x01324086, At(0x2EFBA4, false, true) }, // Snes9x 1.53
+            { 0x01FB975D, At(0x405EC8, false, true) }, // Snes9x 1.53 (x64)
+            { 0x04B29C5E, At(0x3410D4, false, true) }, // Snes9x 1.54/1.54.1
+            { 0x0722CF9C, At(0x4DAF18, false, true) }, // Snes9x 1.54/1.54.1 (x64)
+            { 0x04ED290A, At(0x362874, false, true) }, // Snes9x 1.55
+            { 0x07E61275, At(0x5BFDB8, false, true) }, // Snes9x 1.55 (x64)
+            { 0x055332BD, At(0x38528C, false, true) }, // Snes9x 1.56
+            { 0x09300063, At(0x5D8C68, false, true) }, // Snes9x 1.56 (x64)
+            { 0x054EB6FD, At(0x3811B4, false, true) }, // Snes9x 1.56.1
+            { 0x09129F8C, At(0x5C80A8, false, true) }, // Snes9x 1.56.1 (x64)
+            { 0x0552FE88, At(0x38528C, false, true) }, // Snes9x 1.56.2
+            { 0x09362AEF, At(0x5D9298, false, true) }, // Snes9x 1.56.2 (x64)
+            { 0x0589C94F, At(0x3A6EE4, false, true) }, // Snes9x 1.57
+            { 0x09482DC8, At(0x5ACC58, false, true) }, // Snes9x 1.57 (x64)
+            { 0x058B3E28, At(0x3A7EE4, false, true) }, // Snes9x 1.58
+            { 0x094BAE4C, At(0x5AE848, false, true) }, // Snes9x 1.58 (x64)
+            { 0x0917F50E, At(0x575A54, false, true) }, // Snes9x 1.59.2
+            { 0x11D5B02A, At(0x8D86F8, false, true) }, // Snes9x 1.59.2 (x64)
+            { 0x093E3C13, At(0x54DB54, false, true) }, // Snes9x 1.60
+            { 0x12B060B6, At(0x8D8BE8, false, true) }, // Snes9x 1.60 (x64)
+            { 0x098115FC, At(0x507BC4, false, true) }, // Snes9x 1.61
+            { 0x130C26E9, At(0x883158, false, true) }, // Snes9x 1.61 (x64)
+            // versions from 1.62 onward don't allocate WRAM on heap.
+            { 0x41CACAF8, At(0x608C24, false, false) }, // Snes9x 1.62
+            { 0x5FF7A971, At(0xAA0B04, false, false) }, // Snes9x 1.62 (x64)
+            { 0x0C444AF7, At(0x587494, false, false) }, // Snes9x 1.62.2/1.62.3
+            { 0x1B2C72A6, At(0xA32314, false, false) }, // Snes9x 1.62.2/1.62.3 (x64)
+            { 0x0E08F3CE, At(0x633DB4, false, false) }, // Snes9x 1.63
+            { 0x20C6294E, At(0xB91C24, false, false) }, // Snes9x 1.63 (x64)
+            { 0x06EBFFA0, At(0xB15D7C, false, false) }, // bsnes v113
+            { 0x06F24866, At(0x716D7C, false, false) }, // bsnes v115
+            // bsnes-as uses ASLR. not a problem for LiveSplit, but keep it in mind.
+            { 0x1211A9B8, At(0x996490, false, false) }, // bsnes-as v20240115
+            { 0x12405E88, At(0x9A0470, false, false) }, // bsnes-as v20240512
+            { 0x1260856D, At(0x9A5470, false, false) }, // bsnes-as v20250202/v20250301
+            { 0x12681A36, At(0x9A6470, false, false) }, // bsnes-as v20250308
+        };
+
+        // some notes about Windows stuff:
+        // 32-bit programs are typically loaded to a virtual address of 0x00400000
+        // 64-bit programs are typically loaded to a virtual address of 0x000140000000
+        // when ASLR is enabled, the virtual address is random, near to 0x7FF000000000
+
+        if (versions.ContainsKey(sizeHash)) {
+            var versionInfo = versions[sizeHash];
+            // whichever version of C# this is, it has very limited Tuple support.
+            var addresslike = versionInfo.Item1;
+            var isAbsolute = versionInfo.Item2;
+            var isPointer = versionInfo.Item3;
+            if (!isAbsolute) {
+                addresslike = (long)start + addresslike;
+            }
+            if (isPointer) {
+                memoryOffset = memory.ReadPointer((IntPtr)addresslike);
+            } else {
+                memoryOffset = (IntPtr)addresslike;
             }
         }
     }
