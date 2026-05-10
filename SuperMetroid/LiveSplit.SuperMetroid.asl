@@ -712,7 +712,7 @@ init
             */
             //{ 10330112, At(0x389414, false, true) }, // Snes9x 1.52-rr
             //{ 7729152,  At(0x490EE4, false, true) }, // Snes9x 1.54-rr
-            //{ 9646080,  At(0x57EE04, false, true) }, // Snes9x-rr 1.60
+            { 0x0A8C8D9C, At(0x57EE04, false, true) }, // Snes9x-rr 1.60
             { 0x14E33557, At(0x925118, false, true) }, // Snes9x-rr 1.60 (x64)
             { 0x01324086, At(0x2EFBA4, false, true) }, // Snes9x 1.53
             { 0x01FB975D, At(0x405EC8, false, true) }, // Snes9x 1.53 (x64)
