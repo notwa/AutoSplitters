@@ -17,355 +17,387 @@ state("lsnes-bsnes"){}
 
 startup
 {
-    settings.Add("ammoPickups", true, "Ammo Pickups");
-    settings.SetToolTip("ammoPickups", "Split on Missiles, Super Missiles, and Power Bombs");
-    settings.Add("firstMissile", false, "First Missiles", "ammoPickups");
-    settings.SetToolTip("firstMissile", "Split on the first Missile pickup");
-    settings.Add("allMissiles", false, "All Missiles", "ammoPickups");
-    settings.SetToolTip("allMissiles", "Split on each Missile upgrade");
-    settings.Add("specificMissiles", false, "Specific Missile Packs", "ammoPickups");
-    settings.SetToolTip("specificMissiles", "Split on specific Missile Pack locations");
-    settings.Add("crateriaMissiles", false, "Crateria Missile Packs", "specificMissiles");
-    settings.SetToolTip("crateriaMissiles", "Split on Crateria Missile Pack locations");
-    settings.Add("oceanBottomMissiles", false, "Ocean Bottom Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("oceanBottomMissiles", "Split on picking up the Missile Pack located at the bottom left of the West Ocean");
-    settings.Add("oceanTopMissiles", false, "Ocean Top Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("oceanTopMissiles", "Split on picking up the Missile Pack located in the ceiling tile in West Ocean");
-    settings.Add("oceanMiddleMissiles", false, "Ocean Middle Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("oceanMiddleMissiles", "Split on picking up the Missile Pack located in the Morphball maze section of West Ocean");
-    settings.Add("moatMissiles", false, "Moat Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("moatMissiles", "Split on picking up the Missile Pack in The Moat, also known as The Lake");
-    settings.Add("oldTourianMissiles", false, "Old Tourian Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("oldTourianMissiles", "Split on picking up the Missile Pack in the Pit Room");
-    settings.Add("gauntletRightMissiles", false, "Gauntlet Right Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("gauntletRightMissiles", "Split on picking up the right side Missile Pack at the end of Gauntlet(Green Pirates Shaft)");
-    settings.Add("gauntletLeftMissiles", false, "Gauntlet Left Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("gauntletLeftMissiles", "Split on picking up the left side Missile Pack at the end of Gauntlet(Green Pirates Shaft)");
-    settings.Add("dentalPlan", false, "Dental Plan Missile Pack", "crateriaMissiles");
-    settings.SetToolTip("dentalPlan", "Split on picking up the Missile Pack located in The Final Missile");
-    settings.Add("brinstarMissiles", false, "Brinstar Missile Packs", "specificMissiles");
-    settings.SetToolTip("brinstarMissiles", "Split on Brinstar Missile Pack locations");
-    settings.Add("earlySuperBridgeMissiles", false, "Early Supers Under Bridge Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("earlySuperBridgeMissiles", "Split on picking up the Missile Pack located below the crumble bridge in the Early Supers Room");
-    settings.Add("greenBrinstarReserveMissiles", false, "Brinstar Reserve Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("greenBrinstarReserveMissiles", "Split on picking up the first Missile Pack behind the Brinstar Reserve Tank");
-    settings.Add("greenBrinstarExtraReserveMissiles", false, "Brinstar Reserve Missile Pack 2", "brinstarMissiles");
-    settings.SetToolTip("greenBrinstarExtraReserveMissiles", "Split on picking up the second Missile Pack behind the Brinstar Reserve Tank Room");
-    settings.Add("bigPinkTopMissiles", false, "Big Pink Top Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("bigPinkTopMissiles", "Split on picking up the Missile Pack located left of center in Big Pink");
-    settings.Add("chargeMissiles", false, "Charge Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("chargeMissiles", "Split on picking up the Missile Pack located at the bottom left of Big Pink");
-    settings.Add("greenHillsMissiles", false, "Green Hills Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("greenHillsMissiles", "Split on picking up the Missile Pack in Green Hill Zone");
-    settings.Add("blueBrinstarETankMissiles", false, "Classic Brinstar East Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("blueBrinstarETankMissiles", "Split on picking up the Missile Pack in the Blue Brinstar Energy Tank Room");
-    settings.Add("alphaMissiles", false, "Alpha Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("alphaMissiles", "Split on picking up the first Missile Pack of the game(First Missile Room)");
-    settings.Add("billyMaysMissiles", false, "Billy Mays Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("billyMaysMissiles", "Split on picking up the Missile Pack located on the pedestal in Billy Mays' Room");
-    settings.Add("butWaitTheresMoreMissiles", false, "But Wait... There's MORE! Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("butWaitTheresMoreMissiles", "Split on picking up the Missile Pack located in the floor of Billy Mays' Room");
-    settings.Add("redBrinstarMissiles", false, "Red Brinstar Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("redBrinstarMissiles", "Split on picking up the Missile Pack in the Alpha Power Bombs Room");
-    settings.Add("warehouseMissiles", false, "Warehouse Missile Pack", "brinstarMissiles");
-    settings.SetToolTip("warehouseMissiles", "Split on picking up the Missile Pack in the Warehouse Kihunter Room");
-    settings.Add("norfairMissiles", false, "Norfair Missile Packs", "specificMissiles");
-    settings.SetToolTip("norfairMissiles", "Split on Norfair Missile Pack locations");
-    settings.Add("cathedralMissiles", false, "Cathedral Missile Pack", "norfairMissiles");
-    settings.SetToolTip("cathedralMissiles", "Split on picking up the Missile Pack in Cathedral");
-    settings.Add("crumbleShaftMissiles", false, "Crumble Shaft Missile Pack", "norfairMissiles");
-    settings.SetToolTip("crumbleShaftMissiles", "Split on picking up the Missile Pack in Crumble Shaft");
-    settings.Add("crocomireEscapeMissiles", false, "Crocomire Escape Missile Pack", "norfairMissiles");
-    settings.SetToolTip("crocomireEscapeMissiles", "Split on picking up the Missile Pack in Crocomire Escape");
-    settings.Add("hiJumpMissiles", false, "Hi Jump Missile Pack", "norfairMissiles");
-    settings.SetToolTip("hiJumpMissiles", "Split on picking up the Missile Pack in the Hi Jump Energy Tank Room");
-    settings.Add("postCrocomireMissiles", false, "Post Crocomire Missile Pack", "norfairMissiles");
-    settings.SetToolTip("postCrocomireMissiles", "Split on picking up the Missile Pack in the Post Crocomire Missile Room, also known as Cosine Room");
-    settings.Add("grappleMissiles", false, "Grapple Missile Pack", "norfairMissiles");
-    settings.SetToolTip("grappleMissiles", "Split on picking up the Missile Pack in the Post Crocomire Jump Room");
-    settings.Add("norfairReserveMissiles", false, "Norfair Reserve Missile Pack", "norfairMissiles");
-    settings.SetToolTip("norfairReserveMissiles", "Split on picking up the Missile Pack in the Norfair Reserve Tank Room");
-    settings.Add("greenBubblesMissiles", false, "Green Bubbles Missile Pack", "norfairMissiles");
-    settings.SetToolTip("greenBubblesMissiles", "Split on picking up the Missile Pack in the Green Bubbles Missile Room");
-    settings.Add("bubbleMountainMissiles", false, "Bubble Mountain Missile Pack", "norfairMissiles");
-    settings.SetToolTip("bubbleMountainMissiles", "Split on picking up the Missile Pack in Bubble Mountain");
-    settings.Add("speedBoostMissiles", false, "Speed Booster Missile Pack", "norfairMissiles");
-    settings.SetToolTip("speedBoostMissiles", "Split on picking up the Missile Pack in Speed Booster Hall");
-    settings.Add("waveMissiles", false, "Wave Beam Missile Pack", "norfairMissiles");
-    settings.SetToolTip("waveMissiles", "Split on picking up the Wave Missile Pack in Double Chamber");
-    settings.Add("goldTorizoMissiles", false, "Golden Torizo Missile Pack", "norfairMissiles");
-    settings.SetToolTip("goldTorizoMissiles", "Split on picking up the Missile Pack in the Golden Torizo's Room");
-    settings.Add("mickeyMouseMissiles", false, "Mickey Mouse Missile Pack", "norfairMissiles");
-    settings.SetToolTip("mickeyMouseMissiles", "Split on picking up the Missile Pack in the Mickey Mouse Room");
-    settings.Add("lowerNorfairSpringMazeMissiles", false, "Lower Norfair Springball Maze Missile Pack", "norfairMissiles");
-    settings.SetToolTip("lowerNorfairSpringMazeMissiles", "Split on picking up the Missile Pack in the Lower Norfair Springball Maze Room");
-    settings.Add("threeMusketeersMissiles", false, "Three Musketeers Missile Pack", "norfairMissiles");
-    settings.SetToolTip("threeMusketeersMissiles", "Split on picking up the Missile Pack in the The Musketeers' Room");
-    settings.Add("wreckedShipMissiles", false, "Wrecked Ship Missile Packs", "specificMissiles");
-    settings.SetToolTip("wreckedShipMissiles", "Split on Wrecked Ship Missile Pack locations");
-    settings.Add("wreckedShipMainShaftMissiles", false, "Wrecked Ship Main Shaft Missile Pack", "wreckedShipMissiles");
-    settings.SetToolTip("wreckedShipMainShaftMissiles", "Split on picking up the Missile Pack in Wrecked Ship Main Shaft");
-    settings.Add("bowlingMissiles", false, "Bowling Alley Missile Pack", "wreckedShipMissiles");
-    settings.SetToolTip("bowlingMissiles", "Split on picking up the Missile Pack in Bowling Alley");
-    settings.Add("atticMissiles", false, "Attic Missile Pack", "wreckedShipMissiles");
-    settings.SetToolTip("atticMissiles", "Split on picking up the Missile Pack in the Wrecked Ship East Missile Room");
-    settings.Add("maridiaMissiles", false, "Maridia Missile Packs", "specificMissiles");
-    settings.SetToolTip("maridiaMissiles", "Split on Maridia Missile Pack locations");
-    settings.Add("mainStreetMissiles", false, "Main Street Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("mainStreetMissiles", "Split on picking up the Missile Pack in Main Street");
-    settings.Add("mamaTurtleMissiles", false, "Mama Turtle Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("mamaTurtleMissiles", "Split on picking up the Missile Pack in the Mama Turtle Room");
-    settings.Add("wateringHoleMissiles", false, "Watering Hole Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("wateringHoleMissiles", "Split on picking up the Missile Pack in Watering Hole");
-    settings.Add("beachMissiles", false, "Beach Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("beachMissiles", "Split on picking up the Missile Pack in the Pseudo Plasma Spark Room");
-    settings.Add("leftSandPitMissiles", false, "Left Sand Pit Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("leftSandPitMissiles", "Split on picking up the Missile Pack in West Sand Hole");
-    settings.Add("rightSandPitMissiles", false, "Right Sand Pit Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("rightSandPitMissiles", "Split on picking up the Missile Pack in East Sand Hole");
-    settings.Add("aqueductMissiles", false, "Aqueduct Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("aqueductMissiles", "Split on picking up the Missile Pack in Aqueduct");
-    settings.Add("preDraygonMissiles", false, "Pre Draygon Missile Pack", "maridiaMissiles");
-    settings.SetToolTip("preDraygonMissiles", "Split on picking up the Missile Pack in The Precious Room");
-    settings.Add("firstSuper", false, "First Supers", "ammoPickups");
-    settings.SetToolTip("firstSuper", "Split on the first Super Missile pickup");
-    settings.Add("allSupers", false, "All Super Missiles", "ammoPickups");
-    settings.SetToolTip("allSupers", "Split on each Super Missile upgrade");
-    settings.Add("specificSupers", false, "Specific Super Missile Packs", "ammoPickups");
-    settings.SetToolTip("specificSupers", "Split on specific Super Missile Pack locations");
-    settings.Add("climbSupers", false, "Crateria Super Missile Pack", "specificSupers");
-    settings.SetToolTip("climbSupers", "Split on picking up the Super Missile Pack in the Crateria Super Room");
-    settings.Add("sporeSpawnSupers", false, "Spore Spawn Super Missile Pack", "specificSupers");
-    settings.SetToolTip("sporeSpawnSupers", "Split on picking up the Super Missile Pack in the Spore Spawn Super Room (NOTE: SSTRA splits when the dialogue box disappears, not on touch. Use Spore Spawn RTA Finish for SSTRA runs.)");
-    settings.Add("earlySupers", false, "Early Super Missile Pack", "specificSupers");
-    settings.SetToolTip("earlySupers", "Split on picking up the Super Missile Pack in the Early Supers Room");
-    settings.Add("etacoonSupers", false, "Etacoon Super Missile Pack", "specificSupers");
-    settings.SetToolTip("etacoonSupers", "Split on picking up the Super Missile Pack in the Etacoon Super Room");
-    settings.Add("goldTorizoSupers", false, "Golden Torizo Super Missile Pack", "specificSupers");
-    settings.SetToolTip("goldTorizoSupers", "Split on picking up the Super Missile Pack in the Golden Torizo's Room");
-    settings.Add("wreckedShipLeftSupers", false, "Wrecked Ship Left Super Missile Pack", "specificSupers");
-    settings.SetToolTip("wreckedShipLeftSupers", "Split on picking up the Super Missile Pack in the Wrecked Ship West Super Room");
-    settings.Add("wreckedShipRightSupers", false, "Wrecked Ship Right Super Missile Pack", "specificSupers");
-    settings.SetToolTip("wreckedShipRightSupers", "Split on picking up the Super Missile Pack in the Wrecked Ship East Super Room");
-    settings.Add("crabSupers", false, "Crab Super Missile Pack", "specificSupers");
-    settings.SetToolTip("crabSupers", "Split on picking up the Super Missile Pack in Main Street");
-    settings.Add("wateringHoleSupers", false, "Watering Hole Super Missile Pack", "specificSupers");
-    settings.SetToolTip("wateringHoleSupers", "Split on picking up the Super Missile Pack in Watering Hole");
-    settings.Add("aqueductSupers", false, "Aqueduct Super Missile Pack", "specificSupers");
-    settings.SetToolTip("aqueductSupers", "Split on picking up the Super Missile Pack in Aqueduct");
-    settings.Add("firstPowerBomb", true, "First Power Bomb", "ammoPickups");
-    settings.SetToolTip("firstPowerBomb", "Split on the first Power Bomb pickup");
-    settings.Add("allPowerBombs", false, "All Power Bombs", "ammoPickups");
-    settings.SetToolTip("allPowerBombs", "Split on each Power Bomb upgrade");
-    settings.Add("specificBombs", false, "Specific Power Bomb Packs", "ammoPickups");
-    settings.SetToolTip("specificBombs", "Split on specific Power Bomb Pack locations");
-    settings.Add("landingSiteBombs", false, "Crateria Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("landingSiteBombs", "Split on picking up the Power Bomb Pack in the Crateria Power Bomb Room");
-    settings.Add("etacoonBombs", false, "Etacoon Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("etacoonBombs", "Split on picking up the Power Bomb Pack in the Etacoon Room section of Green Brinstar Main Shaft");
-    settings.Add("pinkBrinstarBombs", false, "Pink Brinstar Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("pinkBrinstarBombs", "Split on picking up the Power Bomb Pack in the Pink Brinstar Power Bomb Room");
-    settings.Add("blueBrinstarBombs", false, "Classic Brinstar Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("blueBrinstarBombs", "Split on picking up the Power Bomb Pack in the Morph Ball Room");
-    settings.Add("alphaBombs", false, "Alpha Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("alphaBombs", "Split on picking up the Power Bomb Pack in the Alpha Power Bomb Room");
-    settings.Add("betaBombs", false, "Beta Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("betaBombs", "Split on picking up the Power Bomb Pack in the Beta Power Bomb Room");
-    settings.Add("crocomireBombs", false, "Crocomire Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("crocomireBombs", "Split on picking up the Power Bomb Pack in the Post Crocomire Power Bomb Room");
-    settings.Add("lowerNorfairEscapeBombs", false, "Lower Norfair Escape Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("lowerNorfairEscapeBombs", "Split on picking up the Power Bomb Pack in the Lower Norfair Escape Power Bomb Room");
-    settings.Add("shameBombs", false, "Power Bombs of Shame Pack", "specificBombs");
-    settings.SetToolTip("shameBombs", "Split on picking up the Power Bomb Pack in Wasteland");
-    settings.Add("rightSandPitBombs", false, "Maridia Power Bomb Pack", "specificBombs");
-    settings.SetToolTip("rightSandPitBombs", "Split on picking up the Power Bomb Pack in East Sand Hall");
+    string activeCategory = null; // null is valid, it means no categorization
 
-    settings.Add("suitUpgrades", true, "Suit Pickups");
-    settings.SetToolTip("suitUpgrades", "Split on Varia and Gravity pickups");
-    settings.Add("variaSuit", true, "Varia Suit", "suitUpgrades");
-    settings.SetToolTip("variaSuit", "Split on picking up the Varia Suit");
-    settings.Add("gravSuit", true, "Gravity Suit", "suitUpgrades");
-    settings.SetToolTip("gravSuit", "Split on picking up the Gravity Suit");
+    Action<string, bool, string, string> MakeSetting =
+    (settingName, defaultState, displayName, description) => {
+        settings.Add(settingName, defaultState, displayName, activeCategory);
+        settings.SetToolTip(settingName, description);
+    };
 
-    settings.Add("beamUpgrades", true, "Beam Upgrades");
-    settings.SetToolTip("beamUpgrades", "Split on beam upgrades");
-    settings.Add("chargeBeam", false, "Charge Beam", "beamUpgrades");
-    settings.SetToolTip("chargeBeam", "Split on picking up the Charge Beam");
-    settings.Add("spazer", false, "Spazer", "beamUpgrades");
-    settings.SetToolTip("spazer", "Split on picking up the Spazer");
-    settings.Add("wave", true, "Wave Beam", "beamUpgrades");
-    settings.SetToolTip("wave", "Split on picking up the Wave Beam");
-    settings.Add("ice", false, "Ice Beam", "beamUpgrades");
-    settings.SetToolTip("ice", "Split on picking up the Ice Beam");
-    settings.Add("plasma", false, "Plasma Beam", "beamUpgrades");
-    settings.SetToolTip("plasma", "Split on picking up the Plasma Beam");
+    Action<string, bool, string, string, string> MakeSubcategory =
+    (categoryName, defaultState, parent, displayName, description) => {
+        activeCategory = parent;
+        MakeSetting(categoryName, defaultState, displayName, description);
+        activeCategory = categoryName;
+    };
 
-    settings.Add("bootUpgrades", false, "Boot Upgrades");
-    settings.SetToolTip("bootUpgrades", "Split on boot upgrades");
-    settings.Add("hiJump", false, "Hi-Jump Boots", "bootUpgrades");
-    settings.SetToolTip("hiJump", "Split on picking up the Hi-Jump Boots");
-    settings.Add("spaceJump", false, "Space Jump", "bootUpgrades");
-    settings.SetToolTip("spaceJump", "Split on picking up Space Jump");
-    settings.Add("speedBooster", false, "Speed Booster", "bootUpgrades");
-    settings.SetToolTip("speedBooster", "Split on picking up the Speed Booster");
+    Action<string, bool, string, string> MakeCategory =
+    (categoryName, defaultState, displayName, description) => {
+        MakeSubcategory(categoryName, defaultState, null, displayName, description);
+    };
 
-    settings.Add("energyUpgrades", false, "Energy Upgrades");
-    settings.SetToolTip("energyUpgrades", "Split on Energy Tanks and Reserve Tanks");
-    settings.Add("firstETank", false, "First Energy Tank", "energyUpgrades");
-    settings.SetToolTip("firstETank", "Split on picking up the first Energy Tank");
-    settings.Add("allETanks", false, "All Energy Tanks", "energyUpgrades");
-    settings.SetToolTip("allETanks", "Split on picking up each Energy Tank");
-    settings.Add("specificETanks", false, "Specific Energy Tanks", "energyUpgrades");
-    settings.SetToolTip("specificETanks", "Split on specific Energy Tank locations");
-    settings.Add("gauntletETank", false, "Gauntlet Energy Tank", "specificETanks");
-    settings.SetToolTip("gauntletETank", "Split on picking up the Energy Tank in the Gauntlet Energy Tank Room");
-    settings.Add("terminatorETank", false, "Terminator Energy Tank", "specificETanks");
-    settings.SetToolTip("terminatorETank", "Split on picking up the Energy Tank in the Terminator Room");
-    settings.Add("ceilingETank", false, "Classic Brinstar Energy Tank", "specificETanks");
-    settings.SetToolTip("ceilingETank", "Split on picking up the Energy Tank in the Blue Brinstar Energy Tank Room");
-    settings.Add("etecoonsETank", false, "Etacoon Energy Tank", "specificETanks");
-    settings.SetToolTip("etecoonsETank", "Split on picking up the Energy Tank in the Etacoon Energy Tank Room");
-    settings.Add("waterwayETank", false, "Waterway Energy Tank", "specificETanks");
-    settings.SetToolTip("waterwayETank", "Split on picking up the Energy Tank in Waterway");
-    settings.Add("waveGateETank", false, "Pink Brinstar Wave Gate Energy Tank", "specificETanks");
-    settings.SetToolTip("waveGateETank", "Split on picking up the Energy Tank in the Hopper Energy Tank Room");
-    settings.Add("kraidETank", false, "Warehouse Energy Tank", "specificETanks");
-    settings.SetToolTip("kraidETank", "Split on picking up the Kraid Energy Tank in the Warehouse Energy Tank Room");
-    settings.Add("crocomireETank", false, "Crocomire Energy Tank", "specificETanks");
-    settings.SetToolTip("crocomireETank", "Split on picking up the Energy Tank in Crocomire's Room");
-    settings.Add("hiJumpETank", false, "Hi Jump Energy Tank", "specificETanks");
-    settings.SetToolTip("hiJumpETank", "Split on picking up the Energy Tank in the Hi Jump Energy Tank Room");
-    settings.Add("ridleyETank", false, "Ridley Energy Tank", "specificETanks");
-    settings.SetToolTip("ridleyETank", "Split on picking up the Energy Tank in the Ridley Tank Room");
-    settings.Add("firefleaETank", false, "Fireflea Energy Tank", "specificETanks");
-    settings.SetToolTip("firefleaETank", "Split on picking up the Energy Tank in the Lower Norfair Fireflea Room");
-    settings.Add("wreckedShipETank", false, "Wrecked Ship Energy Tank", "specificETanks");
-    settings.SetToolTip("wreckedShipETank", "Split on picking up the Energy Tank in the Wrecked Ship Energy Tank Room");
-    settings.Add("tatoriETank", false, "Mama Turtle Energy Tank", "specificETanks");
-    settings.SetToolTip("tatoriETank", "Split on picking up the Energy Tank in the Mama Turtle Room");
-    settings.Add("botwoonETank", false, "Botwoon Energy Tank", "specificETanks");
-    settings.SetToolTip("botwoonETank", "Split on picking up the Energy Tank in the Botwoon Energy Tank Room");
-    settings.Add("reserveTanks", false, "All Reserve Tanks", "energyUpgrades");
-    settings.SetToolTip("reserveTanks", "Split on picking up each Reserve Tank");
-    settings.Add("specificRTanks", false, "Specific Reserve Tanks", "energyUpgrades");
-    settings.SetToolTip("specificRTanks", "Split on specific Reserve Tank locations");
-    settings.Add("brinstarReserve", false, "Brinstar Reserve Tank", "specificRTanks");
-    settings.SetToolTip("brinstarReserve", "Split on picking up the Reserve Tank in the Brinstar Reserve Tank Room");
-    settings.Add("norfairReserve", false, "Norfair Reserve Tank", "specificRTanks");
-    settings.SetToolTip("norfairReserve", "Split on picking up the Reserve Tank in the Norfair Reserve Tank Room");
-    settings.Add("wreckedShipReserve", false, "Wrecked Ship Reserve Tank", "specificRTanks");
-    settings.SetToolTip("wreckedShipReserve", "Split on picking up the Reserve Tank in Bowling Alley");
-    settings.Add("maridiaReserve", false, "Maridia Reserve Tank", "specificRTanks");
-    settings.SetToolTip("maridiaReserve", "Split on picking up the Reserve Tank in West Sand Hole");
+    MakeCategory("ammoPickups", true,
+                 "Ammo Pickups", "Split on Missiles, Super Missiles, and Power Bombs");
+    MakeSetting("firstMissile", false,
+                "First Missiles", "Split on the first Missile pickup");
+    MakeSetting("firstSuper", false,
+                "First Supers", "Split on the first Super Missile pickup");
+    MakeSetting("firstPowerBomb", true,
+                "First Power Bomb", "Split on the first Power Bomb pickup");
+    MakeSetting("allMissiles", false,
+                "All Missiles", "Split on each Missile upgrade");
+    MakeSetting("allSupers", false,
+                "All Super Missiles", "Split on each Super Missile upgrade");
+    MakeSetting("allPowerBombs", false,
+                "All Power Bombs", "Split on each Power Bomb upgrade");
 
-    settings.Add("miscUpgrades", false, "Misc Upgrades");
-    settings.SetToolTip("miscUpgrades", "Split on the miscellaneous upgrades");
-    settings.Add("morphBall", false, "Morphing Ball", "miscUpgrades");
-    settings.SetToolTip("morphBall", "Split on picking up the Morphing Ball");
-    settings.Add("bomb", false, "Bomb",  "miscUpgrades");
-    settings.SetToolTip("bomb", "Split on picking up the Bomb");
-    settings.Add("springBall", false, "Spring Ball", "miscUpgrades");
-    settings.SetToolTip("springBall", "Split on picking up the Spring Ball");
-    settings.Add("screwAttack", false, "Screw Attack", "miscUpgrades");
-    settings.SetToolTip("screwAttack", "Split on picking up the Screw Attack");
-    settings.Add("grapple", false, "Grapple Beam", "miscUpgrades");
-    settings.SetToolTip("grapple", "Split on picking up the Grapple Beam");
-    settings.Add("xray", false, "X-Ray Scope", "miscUpgrades");
-    settings.SetToolTip("xray", "Split on picking up the X-Ray Scope");
+    MakeSubcategory("specificMissiles", false, "ammoPickups",
+                    "Specific Missile Packs", "Split on specific Missile Pack locations");
 
-    settings.Add("areaTransitions", true, "Area Transitions");
-    settings.SetToolTip("areaTransitions", "Split on transitions between areas");
-    settings.Add("miniBossRooms", false, "Miniboss Rooms", "areaTransitions");
-    settings.SetToolTip("miniBossRooms", "Split on entering miniboss rooms (except Bomb Torizo)");
-    settings.Add("bossRooms", false, "Boss Rooms", "areaTransitions");
-    settings.SetToolTip("bossRooms", "Split on entering major boss rooms");
-    settings.Add("elevatorTransitions", false, "Elevator transitions", "areaTransitions");
-    settings.SetToolTip("elevatorTransitions", "Split on elevator transitions between areas (except Statue Room to Tourian)");
-    settings.Add("ceresEscape", false, "Ceres Escape", "areaTransitions");
-    settings.SetToolTip("ceresEscape", "Split on leaving Ceres Station");
-    settings.Add("wreckedShipEntrance", false, "Wrecked Ship Entrance", "areaTransitions");
-    settings.SetToolTip("wreckedShipEntrance", "Split on entering the Wrecked Ship Entrance from the lower door of West Ocean");
-    settings.Add("redTowerMiddleEntrance", false, "Red Tower Middle Entrance", "areaTransitions");
-    settings.SetToolTip("redTowerMiddleEntrance", "Split on entering Red Tower from Noob Bridge");
-    settings.Add("redTowerBottomEntrance", false, "Red Tower Bottom Entrance", "areaTransitions");
-    settings.SetToolTip("redTowerBottomEntrance", "Split on entering Red Tower from Skree Boost room");
-    settings.Add("kraidsLair", false, "Kraid's Lair", "areaTransitions");
-    settings.SetToolTip("kraidsLair", "Split on entering Kraid's Lair");
-    settings.Add("risingTideEntrance", false, "Rising Tide Entrance", "areaTransitions");
-    settings.SetToolTip("risingTideEntrance", "Split on entering Rising Tide from Cathedral");
-    settings.Add("atticExit", false, "Attic Exit", "areaTransitions");
-    settings.SetToolTip("atticExit", "Split on exiting Attic");
-    settings.Add("tubeBroken", false, "Tube Broken", "areaTransitions");
-    settings.SetToolTip("tubeBroken", "Split on blowing up the tube to enter Maridia");
-    settings.Add("cacExit", false, "Cacatack Alley Exit", "areaTransitions");
-    settings.SetToolTip("cacExit", "Split on exiting West Cacattack Alley");
-    settings.Add("toilet", false, "Toilet Bowl", "areaTransitions");
-    settings.SetToolTip("toilet", "Split on entering Toilet Bowl from either direction");
-    settings.Add("kronicBoost", false, "Kronic Boost Room", "areaTransitions");
-    settings.SetToolTip("kronicBoost", "Split on entering Kronic Boost room");
-    settings.Add("lowerNorfairEntrance", false, "Lower Norfair Entrance", "areaTransitions");
-    settings.SetToolTip("lowerNorfairEntrance", "Split on the elevator down to Lower Norfair");
-    settings.Add("writg", false, "Worst Room in the Game", "areaTransitions");
-    settings.SetToolTip("writg", "Split on entering Worst Room in the Game");
-    settings.Add("redKiShaft", false, "Red Kihunter Shaft", "areaTransitions");
-    settings.SetToolTip("redKiShaft", "Split on entering Red Kihunter Shaft from either Amphitheatre or Wastelands (NOTE: will split twice)");
-    settings.Add("metalPirates", false, "Metal Pirates Room", "areaTransitions");
-    settings.SetToolTip("metalPirates", "Split on entering Metal Pirates Room from Wasteland");
-    settings.Add("lowerNorfairSpringMaze", false, "Lower Norfair Springball Maze Room", "areaTransitions");
-    settings.SetToolTip("lowerNorfairSpringMaze", "Split on entering Lower Norfair Springball Maze Room");
-    settings.Add("lowerNorfairExit", false, "Lower Norfair Exit", "areaTransitions");
-    settings.SetToolTip("lowerNorfairExit", "Split on moving from the Three Musketeers' Room to the Single Chamber");
-    settings.Add("goldenFour", true, "Golden Four", "areaTransitions");
-    settings.SetToolTip("goldenFour", "Split on entering the Statues Room with all four major bosses defeated");
-    settings.Add("tourianEntrance", false, "Tourian Entrance", "areaTransitions");
-    settings.SetToolTip("tourianEntrance", "Split on the elevator down to Tourian");
-    settings.Add("metroids", false, "Tourian Metroid Rooms", "areaTransitions");
-    settings.SetToolTip("metroids", "Split on exiting each of the Metroid rooms in Tourian");
-    settings.Add("babyMetroidRoom", false, "Baby Metroid Room", "areaTransitions");
-    settings.SetToolTip("babyMetroidRoom", "Split on moving from the Dust Torizo Room to the Big Boy Room");
-    settings.Add("escapeClimb", false, "Tourian Exit", "areaTransitions");
-    settings.SetToolTip("escapeClimb", "Split on moving from Tourian Escape Room 4 to The Climb");
+    MakeSubcategory("crateriaMissiles", false, "specificMissiles",
+                    "Crateria Missile Packs", "Split on Crateria Missile Pack locations");
+    MakeSetting("oceanBottomMissiles", false,
+                "Ocean Bottom Missile Pack", "Split on picking up the Missile Pack located at the bottom left of the West Ocean");
+    MakeSetting("oceanTopMissiles", false,
+                "Ocean Top Missile Pack", "Split on picking up the Missile Pack located in the ceiling tile in West Ocean");
+    MakeSetting("oceanMiddleMissiles", false,
+                "Ocean Middle Missile Pack", "Split on picking up the Missile Pack located in the Morphball maze section of West Ocean");
+    MakeSetting("moatMissiles", false,
+                "Moat Missile Pack", "Split on picking up the Missile Pack in The Moat, also known as The Lake");
+    MakeSetting("oldTourianMissiles", false,
+                "Old Tourian Missile Pack", "Split on picking up the Missile Pack in the Pit Room");
+    MakeSetting("gauntletRightMissiles", false,
+                "Gauntlet Right Missile Pack", "Split on picking up the right side Missile Pack at the end of Gauntlet(Green Pirates Shaft)");
+    MakeSetting("gauntletLeftMissiles", false,
+                "Gauntlet Left Missile Pack", "Split on picking up the left side Missile Pack at the end of Gauntlet(Green Pirates Shaft)");
+    MakeSetting("dentalPlan", false,
+                "Dental Plan Missile Pack", "Split on picking up the Missile Pack located in The Final Missile");
 
-    settings.Add("miniBosses", false, "Minibosses");
-    settings.SetToolTip("miniBosses", "Split on defeating minibosses");
-    settings.Add("ceresRidley", false, "Ceres Ridley", "miniBosses");
-    settings.SetToolTip("ceresRidley", "Split on starting the Ceres Escape");
-    settings.Add("bombTorizo", false, "Bomb Torizo", "miniBosses");
-    settings.SetToolTip("bombTorizo", "Split on Bomb Torizo's drops appearing");
-    settings.Add("sporeSpawn", false, "Spore Spawn", "miniBosses");
-    settings.SetToolTip("sporeSpawn", "Split on the last hit to Spore Spawn");
-    settings.Add("crocomire", false, "Crocomire", "miniBosses");
-    settings.SetToolTip("crocomire", "Split on Crocomire's drops appearing");
-    settings.Add("botwoon", false, "Botwoon", "miniBosses");
-    settings.SetToolTip("botwoon", "Split on Botwoon's vertical column being fully destroyed");
-    settings.Add("goldenTorizo", false, "Golden Torizo", "miniBosses");
-    settings.SetToolTip("goldenTorizo", "Split on Golden Torizo's drops appearing");
+    MakeSubcategory("brinstarMissiles", false, "specificMissiles",
+                    "Brinstar Missile Packs", "Split on Brinstar Missile Pack locations");
+    MakeSetting("earlySuperBridgeMissiles", false,
+                "Early Supers Under Bridge Missile Pack", "Split on picking up the Missile Pack located below the crumble bridge in the Early Supers Room");
+    MakeSetting("greenBrinstarReserveMissiles", false,
+                "Brinstar Reserve Missile Pack", "Split on picking up the first Missile Pack behind the Brinstar Reserve Tank");
+    MakeSetting("greenBrinstarExtraReserveMissiles", false,
+                "Brinstar Reserve Missile Pack 2", "Split on picking up the second Missile Pack behind the Brinstar Reserve Tank Room");
+    MakeSetting("bigPinkTopMissiles", false,
+                "Big Pink Top Missile Pack", "Split on picking up the Missile Pack located left of center in Big Pink");
+    MakeSetting("chargeMissiles", false,
+                "Charge Missile Pack", "Split on picking up the Missile Pack located at the bottom left of Big Pink");
+    MakeSetting("greenHillsMissiles", false,
+                "Green Hills Missile Pack", "Split on picking up the Missile Pack in Green Hill Zone");
+    MakeSetting("blueBrinstarETankMissiles", false,
+                "Classic Brinstar East Missile Pack", "Split on picking up the Missile Pack in the Blue Brinstar Energy Tank Room");
+    MakeSetting("alphaMissiles", false,
+                "Alpha Missile Pack", "Split on picking up the first Missile Pack of the game(First Missile Room)");
+    MakeSetting("billyMaysMissiles", false,
+                "Billy Mays Missile Pack", "Split on picking up the Missile Pack located on the pedestal in Billy Mays' Room");
+    MakeSetting("butWaitTheresMoreMissiles", false,
+                "But Wait... There's MORE! Missile Pack", "Split on picking up the Missile Pack located in the floor of Billy Mays' Room");
+    MakeSetting("redBrinstarMissiles", false,
+                "Red Brinstar Missile Pack", "Split on picking up the Missile Pack in the Alpha Power Bombs Room");
+    MakeSetting("warehouseMissiles", false,
+                "Warehouse Missile Pack", "Split on picking up the Missile Pack in the Warehouse Kihunter Room");
 
-    settings.Add("bosses", true, "Bosses");
-    settings.SetToolTip("bosses", "Split on defeating major bosses");
-    settings.Add("kraid", false, "Kraid", "bosses");
-    settings.SetToolTip("kraid", "Split shortly after Kraid's drops appear");
-    settings.Add("phantoon", false, "Phantoon", "bosses");
-    settings.SetToolTip("phantoon", "Split on Phantoon's drops appearing");
-    settings.Add("draygon", false, "Draygon", "bosses");
-    settings.SetToolTip("draygon", "Split on Draygon's drops appearing");
-    settings.Add("ridley", true, "Ridley", "bosses");
-    settings.SetToolTip("ridley", "Split on Ridley's drops appearing");
-    settings.Add("mb1", false, "Mother Brain 1", "bosses");
-    settings.SetToolTip("mb1", "Split on Mother Brain's head hitting the ground at the end of the first phase");
-    settings.Add("mb2", true, "Mother Brain 2", "bosses");
-    settings.SetToolTip("mb2", "Split on the Baby Metroid detaching from Mother Brain's head");
-    settings.Add("mb3", false, "Mother Brain 3", "bosses");
-    settings.SetToolTip("mb3", "Split on the start of the Zebes Escape");
+    MakeSubcategory("norfairMissiles", false, "specificMissiles",
+                    "Norfair Missile Packs", "Split on Norfair Missile Pack locations");
+    MakeSetting("cathedralMissiles", false,
+                "Cathedral Missile Pack", "Split on picking up the Missile Pack in Cathedral");
+    MakeSetting("crumbleShaftMissiles", false,
+                "Crumble Shaft Missile Pack", "Split on picking up the Missile Pack in Crumble Shaft");
+    MakeSetting("crocomireEscapeMissiles", false,
+                "Crocomire Escape Missile Pack", "Split on picking up the Missile Pack in Crocomire Escape");
+    MakeSetting("hiJumpMissiles", false,
+                "Hi Jump Missile Pack", "Split on picking up the Missile Pack in the Hi Jump Energy Tank Room");
+    MakeSetting("postCrocomireMissiles", false,
+                "Post Crocomire Missile Pack", "Split on picking up the Missile Pack in the Post Crocomire Missile Room, also known as Cosine Room");
+    MakeSetting("grappleMissiles", false,
+                "Grapple Missile Pack", "Split on picking up the Missile Pack in the Post Crocomire Jump Room");
+    MakeSetting("norfairReserveMissiles", false,
+                "Norfair Reserve Missile Pack", "Split on picking up the Missile Pack in the Norfair Reserve Tank Room");
+    MakeSetting("greenBubblesMissiles", false,
+                "Green Bubbles Missile Pack", "Split on picking up the Missile Pack in the Green Bubbles Missile Room");
+    MakeSetting("bubbleMountainMissiles", false,
+                "Bubble Mountain Missile Pack", "Split on picking up the Missile Pack in Bubble Mountain");
+    MakeSetting("speedBoostMissiles", false,
+                "Speed Booster Missile Pack", "Split on picking up the Missile Pack in Speed Booster Hall");
+    MakeSetting("waveMissiles", false,
+                "Wave Beam Missile Pack", "Split on picking up the Wave Missile Pack in Double Chamber");
+    MakeSetting("goldTorizoMissiles", false,
+                "Golden Torizo Missile Pack", "Split on picking up the Missile Pack in the Golden Torizo's Room");
+    MakeSetting("mickeyMouseMissiles", false,
+                "Mickey Mouse Missile Pack", "Split on picking up the Missile Pack in the Mickey Mouse Room");
+    MakeSetting("lowerNorfairSpringMazeMissiles", false,
+                "Lower Norfair Springball Maze Missile Pack", "Split on picking up the Missile Pack in the Lower Norfair Springball Maze Room");
+    MakeSetting("threeMusketeersMissiles", false,
+                "Three Musketeers Missile Pack", "Split on picking up the Missile Pack in the The Musketeers' Room");
 
-    settings.Add("rtaFinish", true, "RTA Finish");
-    settings.SetToolTip("rtaFinish", "Split on facing forward at the end of Zebes Escape");
-    settings.Add("igtFinish", false, "IGT Finish");
-    settings.SetToolTip("igtFinish", "Split on In-Game Time finalizing, when the end cutscene starts");
-    settings.Add("sporeSpawnRTAFinish", false, "Spore Spawn RTA Finish");
-    settings.SetToolTip("sporeSpawnRTAFinish", "Split on the end of a Spore Spawn RTA run, when the text box clears after collecting the Super Missiles");
-    settings.Add("hundredMissileRTAFinish", false, "100 Missile RTA Finish");
-    settings.SetToolTip("hundredMissileRTAFinish", "Split on the end of a 100 Missile RTA run, when the text box clears after collecting the hundredth missile");
+    MakeSubcategory("wreckedShipMissiles", false, "specificMissiles",
+                    "Wrecked Ship Missile Packs", "Split on Wrecked Ship Missile Pack locations");
+    MakeSetting("wreckedShipMainShaftMissiles", false,
+                "Wrecked Ship Main Shaft Missile Pack", "Split on picking up the Missile Pack in Wrecked Ship Main Shaft");
+    MakeSetting("bowlingMissiles", false,
+                "Bowling Alley Missile Pack", "Split on picking up the Missile Pack in Bowling Alley");
+    MakeSetting("atticMissiles", false,
+                "Attic Missile Pack", "Split on picking up the Missile Pack in the Wrecked Ship East Missile Room");
+
+    MakeSubcategory("maridiaMissiles", false, "specificMissiles",
+                    "Maridia Missile Packs", "Split on Maridia Missile Pack locations");
+    MakeSetting("mainStreetMissiles", false,
+                "Main Street Missile Pack", "Split on picking up the Missile Pack in Main Street");
+    MakeSetting("mamaTurtleMissiles", false,
+                "Mama Turtle Missile Pack", "Split on picking up the Missile Pack in the Mama Turtle Room");
+    MakeSetting("wateringHoleMissiles", false,
+                "Watering Hole Missile Pack", "Split on picking up the Missile Pack in Watering Hole");
+    MakeSetting("beachMissiles", false,
+                "Beach Missile Pack", "Split on picking up the Missile Pack in the Pseudo Plasma Spark Room");
+    MakeSetting("leftSandPitMissiles", false,
+                "Left Sand Pit Missile Pack", "Split on picking up the Missile Pack in West Sand Hole");
+    MakeSetting("rightSandPitMissiles", false,
+                "Right Sand Pit Missile Pack", "Split on picking up the Missile Pack in East Sand Hole");
+    MakeSetting("aqueductMissiles", false,
+                "Aqueduct Missile Pack", "Split on picking up the Missile Pack in Aqueduct");
+    MakeSetting("preDraygonMissiles", false,
+                "Pre Draygon Missile Pack", "Split on picking up the Missile Pack in The Precious Room");
+
+    MakeSubcategory("specificSupers", false, "ammoPickups",
+                    "Specific Super Missile Packs", "Split on specific Super Missile Pack locations");
+    MakeSetting("climbSupers", false,
+                "Crateria Super Missile Pack", "Split on picking up the Super Missile Pack in the Crateria Super Room");
+    MakeSetting("sporeSpawnSupers", false,
+                "Spore Spawn Super Missile Pack", "Split on picking up the Super Missile Pack in the Spore Spawn Super Room (NOTE: SSTRA splits when the dialogue box disappears, not on touch. Use Spore Spawn RTA Finish for SSTRA runs.)");
+    MakeSetting("earlySupers", false,
+                "Early Super Missile Pack", "Split on picking up the Super Missile Pack in the Early Supers Room");
+    MakeSetting("etacoonSupers", false,
+                "Etacoon Super Missile Pack", "Split on picking up the Super Missile Pack in the Etacoon Super Room");
+    MakeSetting("goldTorizoSupers", false,
+                "Golden Torizo Super Missile Pack", "Split on picking up the Super Missile Pack in the Golden Torizo's Room");
+    MakeSetting("wreckedShipLeftSupers", false,
+                "Wrecked Ship Left Super Missile Pack", "Split on picking up the Super Missile Pack in the Wrecked Ship West Super Room");
+    MakeSetting("wreckedShipRightSupers", false,
+                "Wrecked Ship Right Super Missile Pack", "Split on picking up the Super Missile Pack in the Wrecked Ship East Super Room");
+    MakeSetting("crabSupers", false,
+                "Crab Super Missile Pack", "Split on picking up the Super Missile Pack in Main Street");
+    MakeSetting("wateringHoleSupers", false,
+                "Watering Hole Super Missile Pack", "Split on picking up the Super Missile Pack in Watering Hole");
+    MakeSetting("aqueductSupers", false,
+                "Aqueduct Super Missile Pack", "Split on picking up the Super Missile Pack in Aqueduct");
+
+    MakeSubcategory("specificBombs", false, "ammoPickups",
+                    "Specific Power Bomb Packs", "Split on specific Power Bomb Pack locations");
+    MakeSetting("landingSiteBombs", false,
+                "Crateria Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Crateria Power Bomb Room");
+    MakeSetting("etacoonBombs", false,
+                "Etacoon Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Etacoon Room section of Green Brinstar Main Shaft");
+    MakeSetting("pinkBrinstarBombs", false,
+                "Pink Brinstar Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Pink Brinstar Power Bomb Room");
+    MakeSetting("blueBrinstarBombs", false,
+                "Classic Brinstar Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Morph Ball Room");
+    MakeSetting("alphaBombs", false,
+                "Alpha Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Alpha Power Bomb Room");
+    MakeSetting("betaBombs", false,
+                "Beta Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Beta Power Bomb Room");
+    MakeSetting("crocomireBombs", false,
+                "Crocomire Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Post Crocomire Power Bomb Room");
+    MakeSetting("lowerNorfairEscapeBombs", false,
+                "Lower Norfair Escape Power Bomb Pack", "Split on picking up the Power Bomb Pack in the Lower Norfair Escape Power Bomb Room");
+    MakeSetting("shameBombs", false,
+                "Power Bombs of Shame Pack", "Split on picking up the Power Bomb Pack in Wasteland");
+    MakeSetting("rightSandPitBombs", false,
+                "Maridia Power Bomb Pack", "Split on picking up the Power Bomb Pack in East Sand Hall");
+
+    MakeCategory("suitUpgrades", true,
+                 "Suit Pickups", "Split on Varia and Gravity pickups");
+    MakeSetting("variaSuit", true,
+                "Varia Suit", "Split on picking up the Varia Suit");
+    MakeSetting("gravSuit", true,
+                "Gravity Suit", "Split on picking up the Gravity Suit");
+
+    MakeCategory("beamUpgrades", true,
+                 "Beam Upgrades", "Split on beam upgrades");
+    MakeSetting("chargeBeam", false,
+                "Charge Beam", "Split on picking up the Charge Beam");
+    MakeSetting("spazer", false,
+                "Spazer", "Split on picking up the Spazer");
+    MakeSetting("wave", true,
+                "Wave Beam", "Split on picking up the Wave Beam");
+    MakeSetting("ice", false,
+                "Ice Beam", "Split on picking up the Ice Beam");
+    MakeSetting("plasma", false,
+                "Plasma Beam", "Split on picking up the Plasma Beam");
+
+    MakeCategory("bootUpgrades", false,
+                 "Boot Upgrades", "Split on boot upgrades");
+    MakeSetting("hiJump", false,
+                "Hi-Jump Boots", "Split on picking up the Hi-Jump Boots");
+    MakeSetting("spaceJump", false,
+                "Space Jump", "Split on picking up Space Jump");
+    MakeSetting("speedBooster", false,
+                "Speed Booster", "Split on picking up the Speed Booster");
+
+    MakeCategory("energyUpgrades", false,
+                 "Energy Upgrades", "Split on Energy Tanks and Reserve Tanks");
+    MakeSetting("firstETank", false,
+                "First Energy Tank", "Split on picking up the first Energy Tank");
+    MakeSetting("allETanks", false,
+                "All Energy Tanks", "Split on picking up each Energy Tank");
+    MakeSetting("reserveTanks", false,
+                "All Reserve Tanks", "Split on picking up each Reserve Tank");
+
+    MakeSubcategory("specificETanks", false, "energyUpgrades",
+                    "Specific Energy Tanks", "Split on specific Energy Tank locations");
+    MakeSetting("gauntletETank", false,
+                "Gauntlet Energy Tank", "Split on picking up the Energy Tank in the Gauntlet Energy Tank Room");
+    MakeSetting("terminatorETank", false,
+                "Terminator Energy Tank", "Split on picking up the Energy Tank in the Terminator Room");
+    MakeSetting("ceilingETank", false,
+                "Classic Brinstar Energy Tank", "Split on picking up the Energy Tank in the Blue Brinstar Energy Tank Room");
+    MakeSetting("etecoonsETank", false,
+                "Etacoon Energy Tank", "Split on picking up the Energy Tank in the Etacoon Energy Tank Room");
+    MakeSetting("waterwayETank", false,
+                "Waterway Energy Tank", "Split on picking up the Energy Tank in Waterway");
+    MakeSetting("waveGateETank", false,
+                "Pink Brinstar Wave Gate Energy Tank", "Split on picking up the Energy Tank in the Hopper Energy Tank Room");
+    MakeSetting("kraidETank", false,
+                "Warehouse Energy Tank", "Split on picking up the Kraid Energy Tank in the Warehouse Energy Tank Room");
+    MakeSetting("crocomireETank", false,
+                "Crocomire Energy Tank", "Split on picking up the Energy Tank in Crocomire's Room");
+    MakeSetting("hiJumpETank", false,
+                "Hi Jump Energy Tank", "Split on picking up the Energy Tank in the Hi Jump Energy Tank Room");
+    MakeSetting("ridleyETank", false,
+                "Ridley Energy Tank", "Split on picking up the Energy Tank in the Ridley Tank Room");
+    MakeSetting("firefleaETank", false,
+                "Fireflea Energy Tank", "Split on picking up the Energy Tank in the Lower Norfair Fireflea Room");
+    MakeSetting("wreckedShipETank", false,
+                "Wrecked Ship Energy Tank", "Split on picking up the Energy Tank in the Wrecked Ship Energy Tank Room");
+    MakeSetting("tatoriETank", false,
+                "Mama Turtle Energy Tank", "Split on picking up the Energy Tank in the Mama Turtle Room");
+    MakeSetting("botwoonETank", false,
+                "Botwoon Energy Tank", "Split on picking up the Energy Tank in the Botwoon Energy Tank Room");
+
+    MakeSubcategory("specificRTanks", false, "energyUpgrades",
+                "Specific Reserve Tanks", "Split on specific Reserve Tank locations");
+    MakeSetting("brinstarReserve", false,
+                "Brinstar Reserve Tank", "Split on picking up the Reserve Tank in the Brinstar Reserve Tank Room");
+    MakeSetting("norfairReserve", false,
+                "Norfair Reserve Tank", "Split on picking up the Reserve Tank in the Norfair Reserve Tank Room");
+    MakeSetting("wreckedShipReserve", false,
+                "Wrecked Ship Reserve Tank", "Split on picking up the Reserve Tank in Bowling Alley");
+    MakeSetting("maridiaReserve", false,
+                "Maridia Reserve Tank", "Split on picking up the Reserve Tank in West Sand Hole");
+
+    MakeCategory("miscUpgrades", false,
+                 "Misc Upgrades", "Split on the miscellaneous upgrades");
+    MakeSetting("morphBall", false,
+                "Morphing Ball", "Split on picking up the Morphing Ball");
+    MakeSetting("bomb", false,
+                "Bomb", "Split on picking up the Bomb");
+    MakeSetting("springBall", false,
+                "Spring Ball", "Split on picking up the Spring Ball");
+    MakeSetting("screwAttack", false,
+                "Screw Attack", "Split on picking up the Screw Attack");
+    MakeSetting("grapple", false,
+                "Grapple Beam", "Split on picking up the Grapple Beam");
+    MakeSetting("xray", false,
+                "X-Ray Scope", "Split on picking up the X-Ray Scope");
+
+    MakeCategory("areaTransitions", true,
+                 "Area Transitions", "Split on transitions between areas");
+    MakeSetting("miniBossRooms", false,
+                "Miniboss Rooms", "Split on entering miniboss rooms (except Bomb Torizo)");
+    MakeSetting("bossRooms", false,
+                "Boss Rooms", "Split on entering major boss rooms");
+    MakeSetting("elevatorTransitions", false,
+                "Elevator transitions", "Split on elevator transitions between areas (except Statue Room to Tourian)");
+    MakeSetting("ceresEscape", false,
+                "Ceres Escape", "Split on leaving Ceres Station");
+    MakeSetting("wreckedShipEntrance", false,
+                "Wrecked Ship Entrance", "Split on entering the Wrecked Ship Entrance from the lower door of West Ocean");
+    MakeSetting("redTowerMiddleEntrance", false,
+                "Red Tower Middle Entrance", "Split on entering Red Tower from Noob Bridge");
+    MakeSetting("redTowerBottomEntrance", false,
+                "Red Tower Bottom Entrance", "Split on entering Red Tower from Skree Boost room");
+    MakeSetting("kraidsLair", false,
+                "Kraid's Lair", "Split on entering Kraid's Lair");
+    MakeSetting("risingTideEntrance", false,
+                "Rising Tide Entrance", "Split on entering Rising Tide from Cathedral");
+    MakeSetting("atticExit", false,
+                "Attic Exit", "Split on exiting Attic");
+    MakeSetting("tubeBroken", false,
+                "Tube Broken", "Split on blowing up the tube to enter Maridia");
+    MakeSetting("cacExit", false,
+                "Cacatack Alley Exit", "Split on exiting West Cacattack Alley");
+    MakeSetting("toilet", false,
+                "Toilet Bowl", "Split on entering Toilet Bowl from either direction");
+    MakeSetting("kronicBoost", false,
+                "Kronic Boost Room", "Split on entering Kronic Boost room");
+    MakeSetting("lowerNorfairEntrance", false,
+                "Lower Norfair Entrance", "Split on the elevator down to Lower Norfair");
+    MakeSetting("writg", false,
+                "Worst Room in the Game", "Split on entering Worst Room in the Game");
+    MakeSetting("redKiShaft", false,
+                "Red Kihunter Shaft", "Split on entering Red Kihunter Shaft from either Amphitheatre or Wastelands (NOTE: will split twice)");
+    MakeSetting("metalPirates", false,
+                "Metal Pirates Room", "Split on entering Metal Pirates Room from Wasteland");
+    MakeSetting("lowerNorfairSpringMaze", false,
+                "Lower Norfair Springball Maze Room", "Split on entering Lower Norfair Springball Maze Room");
+    MakeSetting("lowerNorfairExit", false,
+                "Lower Norfair Exit", "Split on moving from the Three Musketeers' Room to the Single Chamber");
+    MakeSetting("goldenFour", true,
+                "Golden Four", "Split on entering the Statues Room with all four major bosses defeated");
+    MakeSetting("tourianEntrance", false,
+                "Tourian Entrance", "Split on the elevator down to Tourian");
+    MakeSetting("metroids", false,
+                "Tourian Metroid Rooms", "Split on exiting each of the Metroid rooms in Tourian");
+    MakeSetting("babyMetroidRoom", false,
+                "Baby Metroid Room", "Split on moving from the Dust Torizo Room to the Big Boy Room");
+    MakeSetting("escapeClimb", false,
+                "Tourian Exit", "Split on moving from Tourian Escape Room 4 to The Climb");
+
+    MakeCategory("miniBosses", false,
+                 "Minibosses", "Split on defeating minibosses");
+    MakeSetting("ceresRidley", false,
+                "Ceres Ridley", "Split on starting the Ceres Escape");
+    MakeSetting("bombTorizo", false,
+                "Bomb Torizo", "Split on Bomb Torizo's drops appearing");
+    MakeSetting("sporeSpawn", false,
+                "Spore Spawn", "Split on the last hit to Spore Spawn");
+    MakeSetting("crocomire", false,
+                "Crocomire", "Split on Crocomire's drops appearing");
+    MakeSetting("botwoon", false,
+                "Botwoon", "Split on Botwoon's vertical column being fully destroyed");
+    MakeSetting("goldenTorizo", false,
+                "Golden Torizo", "Split on Golden Torizo's drops appearing");
+
+    MakeCategory("bosses", true,
+                 "Bosses", "Split on defeating major bosses");
+    MakeSetting("kraid", false,
+                "Kraid", "Split shortly after Kraid's drops appear");
+    MakeSetting("phantoon", false,
+                "Phantoon", "Split on Phantoon's drops appearing");
+    MakeSetting("draygon", false,
+                "Draygon", "Split on Draygon's drops appearing");
+    MakeSetting("ridley", true,
+                "Ridley", "Split on Ridley's drops appearing");
+    MakeSetting("mb1", false,
+                "Mother Brain 1", "Split on Mother Brain's head hitting the ground at the end of the first phase");
+    MakeSetting("mb2", true,
+                "Mother Brain 2", "Split on the Baby Metroid detaching from Mother Brain's head");
+    MakeSetting("mb3", false,
+                "Mother Brain 3", "Split on the start of the Zebes Escape");
+
+    MakeCategory("finishes", true,
+                 "Final Splits", "Split at the end of the run for various categories");
+    MakeSetting("rtaFinish", true,
+                "RTA Finish", "Split on facing forward at the end of Zebes Escape");
+    MakeSetting("igtFinish", false,
+                "IGT Finish", "Split on In-Game Time finalizing, when the end cutscene starts");
+    MakeSetting("sporeSpawnRTAFinish", false,
+                "Spore Spawn RTA Finish", "Split on the end of a Spore Spawn RTA run, when the text box clears after collecting the Super Missiles");
+    MakeSetting("hundredMissileRTAFinish", false,
+                "100 Missile RTA Finish", "Split on the end of a 100 Missile RTA run, when the text box clears after collecting the hundredth missile");
 
     // RoomIDs compiled here:
     // https://wiki.supermetroid.run/List_of_rooms_by_SMILE_ID
