@@ -982,7 +982,7 @@ split
     var wreckedShipReserve = settings["wreckedShipReserve"] && vars.watchers["roomID"].Current == vars.roomIDEnum["bowling"] && (vars.watchers["wreckedShipItems"].Old + 2) == (vars.watchers["wreckedShipItems"].Current);
     var maridiaReserve = settings["maridiaReserve"] && vars.watchers["roomID"].Current == vars.roomIDEnum["leftSandPit"] && (vars.watchers["maridiaItems2"].Old + 2) == (vars.watchers["maridiaItems2"].Current);
     var energyUpgrade = firstETank || allETanks || gauntletETank || terminatorETank || ceilingETank || etecoonsETank || waterwayETank || waveGateETank || kraidETank || crocomireETank || hiJumpETank || ridleyETank || firefleaETank || wreckedShipETank || tatoriETank || botwoonETank || reserveTanks || brinstarReserve || norfairReserve || wreckedShipReserve || maridiaReserve;
-    
+
     // Miniboss room transitions
     var miniBossRooms = false;
     if(settings["miniBossRooms"]){
