@@ -8,6 +8,7 @@
 // Most of the RAM values taken from:
 // https://jathys.zophar.net/supermetroid/kejardon/RAMMap.txt
 
+state("ares"){}
 state("higan"){}
 state("bsnes"){}
 state("snes9x"){}
@@ -749,6 +750,8 @@ init
             { 0x12405E88, At(0x9A0470, false, false) }, // bsnes-as v20240512
             { 0x1260856D, At(0x9A5470, false, false) }, // bsnes-as v20250202/v20250301
             { 0x12681A36, At(0x9A6470, false, false) }, // bsnes-as v20250308
+            // ares uses ASLR too.
+            { 0x1C8FED7C, At(0x1FE67C0, false, false) }, // ares v147
         };
 
         // some notes about Windows stuff:
