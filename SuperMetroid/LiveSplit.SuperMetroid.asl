@@ -1,9 +1,10 @@
 // Super Metroid autosplitter, hosted at:
-// https://github.com/UNHchabo/AutoSplitters
-// 
+// https://github.com/notwa/AutoSplitters/tree/rewrite
+//
 // Basic format of the script is based on:
 // https://github.com/Spiraster/ASLScripts/tree/master/LiveSplit.SMW
-// 
+// https://github.com/UNHchabo/AutoSplitters
+//
 // Most of the RAM values taken from:
 // https://jathys.zophar.net/supermetroid/kejardon/RAMMap.txt
 
