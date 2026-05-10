@@ -590,9 +590,9 @@ startup
     };
 
     vars.motherBrainMaxHPEnum = new Dictionary<string, int>{
-        { "phase1", 0xBB8 },    // 3000
-        { "phase2", 0x4650 },   // 18000
-        { "phase3", 0x8CA0 }    // 36000
+        { "phase1", 3000 },
+        { "phase2", 18000 },
+        { "phase3", 36000 }
     };
 
     vars.eventFlagEnum = new Dictionary<string, int>{
