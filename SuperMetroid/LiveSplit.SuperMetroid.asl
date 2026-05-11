@@ -624,7 +624,8 @@ startup
 
     vars.pickedUpSporeSpawnSuper = false;
     vars.pickedUpHundredthMissile = false;
-    vars.frameRate = 60.0;
+
+    vars.frameRate = 60.0; // used to compute the IGT the same way the game does
 
     // create a unique hash out of the code size and data size.
     Func<ulong,ulong,ulong> Cantor = (x, y) => (x + y) * (x + y + 1) / 2 + y;
@@ -1161,8 +1162,12 @@ gameTime
     var minutes = vars.watchers["igtMinutes"].Current;
     var hours   = vars.watchers["igtHours"].Current;
 
-    if(frames == 0 && vars.watchers["igtFrames"].Old == 49){
-        vars.frameRate = 50.0;
+    if (frames == 0) {
+        if (vars.watchers["igtFrames"].Old == 49) {
+            vars.frameRate = 50.0; // automatically detect PAL
+        } else if (vars.watchers["igtFrames"].Old == 59) {
+            vars.frameRate = 60.0; // automatically detect NTSC
+        }
     }
 
     current.totalTime = (frames / vars.frameRate) + seconds + (60 * minutes) + (60 * 60 * hours);
