@@ -626,6 +626,55 @@ startup
     vars.pickedUpHundredthMissile = false;
     vars.frameRate = 60.0;
 
+    Func<long, bool, bool, Tuple<long, bool, bool>> At = (a, b, c) => Tuple.Create(a, b, c);
+    vars.commonVersions = new Dictionary<ulong, Tuple<long, bool, bool>>{
+        /*
+        { CantorHash, At(Address, IsAbsolute, IsPointer) }, // Emulator X.YY
+        */
+        //{ 10330112, At(0x389414, false, true) }, // Snes9x 1.52-rr
+        //{ 7729152,  At(0x490EE4, false, true) }, // Snes9x 1.54-rr
+        { 0x0A8C8D9C, At(0x57EE04, false, true) }, // Snes9x-rr 1.60
+        { 0x14E33557, At(0x925118, false, true) }, // Snes9x-rr 1.60 (x64)
+        { 0x01324086, At(0x2EFBA4, false, true) }, // Snes9x 1.53
+        { 0x01FB975D, At(0x405EC8, false, true) }, // Snes9x 1.53 (x64)
+        { 0x04B29C5E, At(0x3410D4, false, true) }, // Snes9x 1.54/1.54.1
+        { 0x0722CF9C, At(0x4DAF18, false, true) }, // Snes9x 1.54/1.54.1 (x64)
+        { 0x04ED290A, At(0x362874, false, true) }, // Snes9x 1.55
+        { 0x07E61275, At(0x5BFDB8, false, true) }, // Snes9x 1.55 (x64)
+        { 0x055332BD, At(0x38528C, false, true) }, // Snes9x 1.56
+        { 0x09300063, At(0x5D8C68, false, true) }, // Snes9x 1.56 (x64)
+        { 0x054EB6FD, At(0x3811B4, false, true) }, // Snes9x 1.56.1
+        { 0x09129F8C, At(0x5C80A8, false, true) }, // Snes9x 1.56.1 (x64)
+        { 0x0552FE88, At(0x38528C, false, true) }, // Snes9x 1.56.2
+        { 0x09362AEF, At(0x5D9298, false, true) }, // Snes9x 1.56.2 (x64)
+        { 0x0589C94F, At(0x3A6EE4, false, true) }, // Snes9x 1.57
+        { 0x09482DC8, At(0x5ACC58, false, true) }, // Snes9x 1.57 (x64)
+        { 0x058B3E28, At(0x3A7EE4, false, true) }, // Snes9x 1.58
+        { 0x094BAE4C, At(0x5AE848, false, true) }, // Snes9x 1.58 (x64)
+        { 0x0917F50E, At(0x575A54, false, true) }, // Snes9x 1.59.2
+        { 0x11D5B02A, At(0x8D86F8, false, true) }, // Snes9x 1.59.2 (x64)
+        { 0x093E3C13, At(0x54DB54, false, true) }, // Snes9x 1.60
+        { 0x12B060B6, At(0x8D8BE8, false, true) }, // Snes9x 1.60 (x64)
+        { 0x098115FC, At(0x507BC4, false, true) }, // Snes9x 1.61
+        { 0x130C26E9, At(0x883158, false, true) }, // Snes9x 1.61 (x64)
+        // versions from 1.62 onward don't allocate WRAM on heap.
+        { 0x41CACAF8, At(0x608C24, false, false) }, // Snes9x 1.62
+        { 0x5FF7A971, At(0xAA0B04, false, false) }, // Snes9x 1.62 (x64)
+        { 0x0C444AF7, At(0x587494, false, false) }, // Snes9x 1.62.2/1.62.3
+        { 0x1B2C72A6, At(0xA32314, false, false) }, // Snes9x 1.62.2/1.62.3 (x64)
+        { 0x0E08F3CE, At(0x633DB4, false, false) }, // Snes9x 1.63
+        { 0x20C6294E, At(0xB91C24, false, false) }, // Snes9x 1.63 (x64)
+        { 0x06EBFFA0, At(0xB15D7C, false, false) }, // bsnes v113
+        { 0x06F24866, At(0x716D7C, false, false) }, // bsnes v115
+        // bsnes-as uses ASLR. not a problem for LiveSplit, but keep it in mind.
+        { 0x1211A9B8, At(0x996490, false, false) }, // bsnes-as v20240115
+        { 0x12405E88, At(0x9A0470, false, false) }, // bsnes-as v20240512
+        { 0x1260856D, At(0x9A5470, false, false) }, // bsnes-as v20250202/v20250301
+        { 0x12681A36, At(0x9A6470, false, false) }, // bsnes-as v20250308
+        // ares uses ASLR too.
+        { 0x1C8FED7C, At(0x1FE67C0, false, false) }, // ares v147
+    };
+
     Action<string> DebugOutput = (text) => {
         print("[Super Metroid Autosplitter] "+text);
     };
@@ -671,8 +720,6 @@ init
     ulong sizeHash = Sizes(codeSize, dataSize);
     vars.DebugOutput("Cantor Hash: 0x" + sizeHash.ToString("X8"));
 
-    Func<long, bool, bool, Tuple<long, bool, bool>> At = (a, b, c) => Tuple.Create(a, b, c);
-
     var processName = game.ProcessName.ToLower();
     if (processName.Contains("retroarch")) {
         // RetroArch stores a pointer to the emulated WRAM inside itself (it
@@ -706,61 +753,14 @@ init
             }
         }
     } else {
-        var versions = new Dictionary<ulong, Tuple<long, bool, bool>>{
-            /*
-            { CantorHash, At(Address, IsAbsolute, IsPointer) }, // Emulator X.YY
-            */
-            //{ 10330112, At(0x389414, false, true) }, // Snes9x 1.52-rr
-            //{ 7729152,  At(0x490EE4, false, true) }, // Snes9x 1.54-rr
-            { 0x0A8C8D9C, At(0x57EE04, false, true) }, // Snes9x-rr 1.60
-            { 0x14E33557, At(0x925118, false, true) }, // Snes9x-rr 1.60 (x64)
-            { 0x01324086, At(0x2EFBA4, false, true) }, // Snes9x 1.53
-            { 0x01FB975D, At(0x405EC8, false, true) }, // Snes9x 1.53 (x64)
-            { 0x04B29C5E, At(0x3410D4, false, true) }, // Snes9x 1.54/1.54.1
-            { 0x0722CF9C, At(0x4DAF18, false, true) }, // Snes9x 1.54/1.54.1 (x64)
-            { 0x04ED290A, At(0x362874, false, true) }, // Snes9x 1.55
-            { 0x07E61275, At(0x5BFDB8, false, true) }, // Snes9x 1.55 (x64)
-            { 0x055332BD, At(0x38528C, false, true) }, // Snes9x 1.56
-            { 0x09300063, At(0x5D8C68, false, true) }, // Snes9x 1.56 (x64)
-            { 0x054EB6FD, At(0x3811B4, false, true) }, // Snes9x 1.56.1
-            { 0x09129F8C, At(0x5C80A8, false, true) }, // Snes9x 1.56.1 (x64)
-            { 0x0552FE88, At(0x38528C, false, true) }, // Snes9x 1.56.2
-            { 0x09362AEF, At(0x5D9298, false, true) }, // Snes9x 1.56.2 (x64)
-            { 0x0589C94F, At(0x3A6EE4, false, true) }, // Snes9x 1.57
-            { 0x09482DC8, At(0x5ACC58, false, true) }, // Snes9x 1.57 (x64)
-            { 0x058B3E28, At(0x3A7EE4, false, true) }, // Snes9x 1.58
-            { 0x094BAE4C, At(0x5AE848, false, true) }, // Snes9x 1.58 (x64)
-            { 0x0917F50E, At(0x575A54, false, true) }, // Snes9x 1.59.2
-            { 0x11D5B02A, At(0x8D86F8, false, true) }, // Snes9x 1.59.2 (x64)
-            { 0x093E3C13, At(0x54DB54, false, true) }, // Snes9x 1.60
-            { 0x12B060B6, At(0x8D8BE8, false, true) }, // Snes9x 1.60 (x64)
-            { 0x098115FC, At(0x507BC4, false, true) }, // Snes9x 1.61
-            { 0x130C26E9, At(0x883158, false, true) }, // Snes9x 1.61 (x64)
-            // versions from 1.62 onward don't allocate WRAM on heap.
-            { 0x41CACAF8, At(0x608C24, false, false) }, // Snes9x 1.62
-            { 0x5FF7A971, At(0xAA0B04, false, false) }, // Snes9x 1.62 (x64)
-            { 0x0C444AF7, At(0x587494, false, false) }, // Snes9x 1.62.2/1.62.3
-            { 0x1B2C72A6, At(0xA32314, false, false) }, // Snes9x 1.62.2/1.62.3 (x64)
-            { 0x0E08F3CE, At(0x633DB4, false, false) }, // Snes9x 1.63
-            { 0x20C6294E, At(0xB91C24, false, false) }, // Snes9x 1.63 (x64)
-            { 0x06EBFFA0, At(0xB15D7C, false, false) }, // bsnes v113
-            { 0x06F24866, At(0x716D7C, false, false) }, // bsnes v115
-            // bsnes-as uses ASLR. not a problem for LiveSplit, but keep it in mind.
-            { 0x1211A9B8, At(0x996490, false, false) }, // bsnes-as v20240115
-            { 0x12405E88, At(0x9A0470, false, false) }, // bsnes-as v20240512
-            { 0x1260856D, At(0x9A5470, false, false) }, // bsnes-as v20250202/v20250301
-            { 0x12681A36, At(0x9A6470, false, false) }, // bsnes-as v20250308
-            // ares uses ASLR too.
-            { 0x1C8FED7C, At(0x1FE67C0, false, false) }, // ares v147
-        };
 
         // some notes about Windows stuff:
         // 32-bit programs are typically loaded to a virtual address of 0x00400000
         // 64-bit programs are typically loaded to a virtual address of 0x000140000000
         // when ASLR is enabled, the virtual address is random, near to 0x7FF000000000
 
-        if (versions.ContainsKey(sizeHash)) {
-            var versionInfo = versions[sizeHash];
+        if (vars.commonVersions.ContainsKey(sizeHash)) {
+            var versionInfo = vars.commonVersions[sizeHash];
             // whichever version of C# this is, it has very limited Tuple support.
             var addresslike = versionInfo.Item1;
             var isAbsolute = versionInfo.Item2;
